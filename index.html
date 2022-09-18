@@ -8,11 +8,69 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- static elements -->
-
-    <!-- input elements -->
-
-    <!-- return elements -->
+    <main>
+      <div class="backGround">
+        <div class="pageOne">
+          <div class="filtering fancyContainer">
+            <h2 class="fancyFont">Filters:</h2>
+          </div>
+          <div class="search">
+            <label for="searchMe" class="search"
+              >Search<input type="text" label="search" class="searchMe"
+            /></label>
+          </div>
+          <div class="studentDisplay">
+            <div class="tableHeader fancyContainer">
+              <ul>
+                <li class="header">First Name</li>
+                <li class="header">Middle Name</li>
+                <li class="header">Nick Name</li>
+                <li class="header">Last Name</li>
+                <li class="header">House</li>
+              </ul>
+            </div>
+            <template class="studentRow">
+              <p class="firstName"></p>
+              <p class="middleName"></p>
+              <p class="nickName"></p>
+              <p class="lastName"></p>
+              <p class="houseName"></p>
+            </template>
+          </div>
+        </div>
+        <div class="pageTwo">
+          <div class="title fancyFont fancyContainer">
+            <h1>Hacking Hogwarts</h1>
+          </div>
+          <div class="studentCard">
+            <div class="studentPic">
+              <div class="studentName bodyText"></div>
+              <ul id="iconImg">
+                <li class="icon" id="blood"></li>
+                <li class="icon" id="prefect"></li>
+                <li class="icon" id="inquisitor"></li>
+              </ul>
+              <ul class="iconText">
+                <li class="bodyText"></li>
+                <li class="bodyText"></li>
+                <li class="bodyText"></li>
+              </ul>
+              <div class="scriptText">
+                <h2 class="fancyFont"></h2>
+              </div>
+              <div class="houseCrest"></div>
+              <div class="actions">
+                <ul class="actionList">
+                  <li class="bodyText"></li>
+                  <li class="bodyText"></li>
+                  <li class="bodyText"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script src="main.js"></script>
   </body>

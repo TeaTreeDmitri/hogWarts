@@ -1,14 +1,87 @@
+@import url("https://use.typekit.net/mkr5ryv.css");
+
 /* intialise view */
+* {
+    margin: 0;
+    list-style: none;
+}
+
 
     /* layout and parent divs */
+.backGround {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background-image: url(/assets/otherImg/woodenDessk.jpeg);
+        background-size: cover;
+    }
+    .fancyContainer {
+        background-color: hsla(100, 0%, 0%, 40%) ;
+        width: 80%;
+    }
 
     /* fonts */
+
+    h1 {
+        font-size: 4rem;
+        text-align: center;
+    }
+
+    p {
+        font-family: turnip-re, serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+.fancyFont {
+    font-family: nautica, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #C9C152;
+}
 
     /* style variables */
 
 /* initialise first page  */
+.pageOne {
+    justify-self: end;
+    display: grid;
+    grid-template-rows: 10% 7% 1fr ;
+    background-color: #DEC791;
+    height: 90%;
+    width: 90%;
+    margin-top: 5%;
+    margin-left: 5%;
+    border-top: solid 15px #A33434;
+    border-left: solid 15px #A33434;
+    border-bottom: solid 15px #A33434;
+    border-right: solid 2px #967c41;
+}
 
     /* control bars */
+.filtering { 
+    margin-top: 5%;
+    margin-left: 5%;
+    padding-left: 5%;
+}
+
+.search {
+    margin-left: 5%;
+    align-self: center;
+}
+
+.searchMe {
+    width: 76%;
+}
+
+.studentDisplay {
+    width: 90%;
+    border: red solid 1px;
+    margin-left: 5%;
+    height: 95%;
+    overflow-y: scroll;
+}
 
     /* list/database */
 
@@ -16,7 +89,40 @@
 
 /* initialise second page */
 
+.pageTwo {
+    display:grid;
+    grid-template-rows: 15% 1fr;
+    background-color: #DEC791;
+    height: 90%;
+    width: 90%;
+    margin-top: 5%;
+    margin-right: 5%;
+    border-top: solid 15px #A33434;
+    border-right: solid 15px #A33434;
+    border-bottom: solid 15px #A33434;
+}
+
+.title {
+    background-color: hsla(100, 0%, 0%, 40%) ;
+    width: 80%;
+    height: 80%;
+    margin-top: 3%;
+    margin-left: 10%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.studentCard {
+    background-color: #F2EAD1;
+    width: 90%;
+    height: 90%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
     /* student picture */
+
+
 
     /* description text w/spans */
 
