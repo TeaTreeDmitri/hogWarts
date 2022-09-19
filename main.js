@@ -32,7 +32,6 @@ let allStudents = [];
 
 
 document.addEventListener("DOMContentLoaded", event => {
-    console.log("DOMContentLoaded")
     initialise();
     addButtons();
 })
@@ -41,11 +40,9 @@ document.addEventListener("DOMContentLoaded", event => {
 //fetch the data 
 
 async function initialise() {
-    console.log("initialise()")
     await loadNames();
     // await loadBlood();
     prepareObjects();
-    console.log(allStudents);
 }
 
 //add eventListeners 
@@ -53,13 +50,15 @@ async function initialise() {
 function addButtons() {
     document.querySelectorAll("[data-action='filter']")
     .forEach( button => button.addEventListener("click", selectFilter))
+
+    document.querySelectorAll("[data-action='sort']")
+    .forEach( button => button.addEventListener("click", selectSort))
 }
 
 //fetch names 
 async function loadNames(){
     const nameData = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
     studentNames = await nameData.json();
-    console.log(studentNames)
     prepareObjects(studentNames);
     
 }
@@ -81,8 +80,6 @@ function prepareObjects(names) {
 
 //clean up the name data 
 function prepareData(el) {
-    console.log("prepareData()");
-        
         // trim whitespace from edges
         el.fullname = el.fullname.trim();
 
@@ -217,7 +214,53 @@ function isHuff(item) {
 //filter by inquisitors
 
 
+//sort the data
+function selectSort(event) {
+    const sortBy = event.target.dataset.sort;
+    console.log("User selected: ", sortBy);
+    sortList(sortBy);
+}
 
+
+function sortList(sortBy) {
+    let sortedList = allStudents;
+    if (sortBy === "first") {
+        sortedList = sortedList.sort(sortByFirst)
+    } else if (sortBy === "last") {
+        sortedList = sortedList.sort(sortByLast)
+    } else if (sortBy === "house") {
+        sortedList = sortedList.sort(sortByHouse)
+    }
+
+    displayList(sortedList)
+}
+//sort by first name
+
+function sortByFirst(studentA, studentB) {
+    if (studentA.firstName < studentB.firstName ) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+//sort by last name
+
+function sortByLast (studentA, studentB) {
+    if (studentA.lastName < studentB.lastName ) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+//sort by house
+function sortByHouse (studentA, studentB) {
+    if (studentA.house < studentB.house ) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
 
 //display the data 
 
@@ -244,15 +287,6 @@ function displayStudents(listItem) {
 }
 
 
-
-
-//sort the data
-
-//sort by first name
-
-//sort by last name
-
-//sort by house
 
 
 // open student page 
