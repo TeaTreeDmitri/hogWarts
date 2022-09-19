@@ -13,29 +13,31 @@
         <div class="pageOne">
           <div class="filtering fancyContainer">
             <h2 class="fancyFont">Filters:</h2>
+            <button class="filterButton" data-action="filter" data-filter="Attending">Attending</button>
+            <button class="filterButton" data-action="filter" data-filter="Hufflepuff">HufflePuff</button>
+            <button class="filterButton" data-action="filter" data-filter="Gryffindor">Gryffindor</button>
+            <button class="filterButton" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button>
+            <button class="filterButton" data-action="filter" data-filter="Slytherin">Slytherin</button>
+            <button class="filterButton" data-action="filter" data-filter="Prefects">Prefects</button>
+            <button class="filterButton" data-action="filter" data-filter="*">Show all</button>
+
           </div>
           <div class="search">
             <label for="searchMe" class="search"
-              >Search<input type="text" label="search" class="searchMe"
+              >Search: <input type="text" label="search" class="searchMe"
             /></label>
           </div>
           <div class="studentDisplay">
-            <div class="tableHeader fancyContainer">
-              <ul>
-                <li class="header">First Name</li>
-                <li class="header">Middle Name</li>
-                <li class="header">Nick Name</li>
-                <li class="header">Last Name</li>
-                <li class="header">House</li>
-              </ul>
-            </div>
-            <template class="studentRow">
-              <p class="firstName"></p>
-              <p class="middleName"></p>
-              <p class="nickName"></p>
-              <p class="lastName"></p>
-              <p class="houseName"></p>
-            </template>
+            <table class="studentTable" id="list">
+              <thead class="tableHeader fancyFont fancyContainer">
+                <th class="header">First Name</th>
+                <th class="header">Last Name</th>
+                <th class="header">House Name</th>
+              </thead>
+              <tbody>
+                <!-- student data will be copied and insterted here -->
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="pageTwo">
@@ -43,35 +45,41 @@
             <h1>Hacking Hogwarts</h1>
           </div>
           <div class="studentCard">
-            <div class="studentPic">
-              <div class="studentName bodyText"></div>
-              <ul id="iconImg">
-                <li class="icon" id="blood"></li>
-                <li class="icon" id="prefect"></li>
-                <li class="icon" id="inquisitor"></li>
-              </ul>
+            <div class="studentPic"></div>
+              <div class="studentName bodyText">Draco Malfoy</div>
+              <div class="iconBox">
               <ul class="iconText">
-                <li class="bodyText"></li>
-                <li class="bodyText"></li>
-                <li class="bodyText"></li>
+                <li class="bodyText" id="bloodPoint">Pure-Blood</li>
+                <li class="bodyText" id="prefectPoint">Not a Prefect</li>
+                <li class="bodyText" id="inquisitorPoint">Not an Inquisitor</li>
               </ul>
+            </div>
               <div class="scriptText">
-                <h2 class="fancyFont"></h2>
+                <h2 class="fancyFont">Draco is a prefect, has not been expelled
+                  yet, is of pure-blood and is currently
+                  a member of the inquisition </h2>
               </div>
-              <div class="houseCrest"></div>
+              <div class="houseCrest">
+                <img class="houseImg" src="/assets/otherImg/slyth.jpg" alt="Slytherin House Crest">
+              </div>
               <div class="actions">
                 <ul class="actionList">
-                  <li class="bodyText"></li>
-                  <li class="bodyText"></li>
-                  <li class="bodyText"></li>
+                  <li class="bodyText">Fire inquisitor</li>
+                  <li class="bodyText">Hire Prefect</li>
+                  <li class="bodyText">Expell Student!</li>
                 </ul>
               </div>
-            </div>
           </div>
         </div>
       </div>
     </main>
-
+    <template id="student">
+      <tr>
+        <td data-field="firstName">First Name</td>
+        <td data-field="lastName">Last Name</td>
+        <td data-field="houseName">House</td>
+      </tr>
+    </template>
     <script src="main.js"></script>
   </body>
 </html>

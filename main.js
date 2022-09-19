@@ -34,7 +34,7 @@ let allStudents = [];
 document.addEventListener("DOMContentLoaded", event => {
     console.log("DOMContentLoaded")
     initialise();
-
+    addButtons();
 })
 
 
@@ -48,12 +48,20 @@ async function initialise() {
     console.log(allStudents);
 }
 
+//add eventListeners 
+
+function addButtons() {
+    document.querySelectorAll("[data-action='filter']")
+    .forEach( button => button.addEventListener("click", selectFilter))
+}
+
 //fetch names 
 async function loadNames(){
     const nameData = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
     studentNames = await nameData.json();
     console.log(studentNames)
     prepareObjects(studentNames);
+    
 }
 
 //fetch images
@@ -68,6 +76,7 @@ async function loadNames(){
 function prepareObjects(names) {
     allStudents = names.map(prepareData);
     displayList(allStudents);
+    // addClick();
 }
 
 //clean up the name data 
@@ -158,31 +167,83 @@ function prepareData(el) {
         student.nickName = nickName;
         student.house = houseName;
         student.gender = studentGender;
-        // console.table(student);
-
-        
 
         return student;
 }
+
+//filter the data 
+function selectFilter(event) {
+    const filter = event.target.dataset.filter;
+    console.log("User selected: ", filter);
+    filterList(filter)
+}
+
+function filterList(filterBy) {
+    let filteredList = allStudents;
+    if (filterBy === "Gryffindor") {
+        filteredList = allStudents.filter(isGryff);
+    } else if (filterBy === "Slytherin") {
+        filteredList = allStudents.filter(isSlyth);
+    } else if (filterBy === "Ravenclaw") {
+        filteredList = allStudents.filter(isRave);
+    } else if (filterBy === "Hufflepuff") {
+        filteredList = allStudents.filter(isHuff);
+    } 
+
+    displayList(filteredList)
+}
+//filter by attending/expelled
+
+//filter by house
+
+function isGryff(item) {
+    return item.house === "Gryffindor"
+};
+
+function isSlyth(item) {
+    return item.house === "Slytherin"
+};
+
+function isRave(item) {
+    return item.house === "Ravenclaw"
+};
+
+function isHuff(item) {
+    return item.house === "Hufflepuff"
+}
+
+//filter by prefects
+
+//filter by inquisitors
+
 
 
 
 //display the data 
 
-function displayList() {
-    console.log("displayList()")
-    console.log(allStudents);
+function displayList(students) {
+
+    //clear the list
+    document.querySelector("#list tbody").innerHTML = "";
+
+    //build a new list
+    students.forEach(displayStudents)
 }
 
-//filter the data 
+function displayStudents(listItem) {
+    //create clone
+    const clone = document.querySelector("template#student").content.cloneNode(true);
 
-//filter by attending/expelled
 
-//filter by house
+    //set clone data 
+    clone.querySelector("[data-field=firstName]").textContent = listItem.firstName;
+    clone.querySelector("[data-field=lastName]").textContent = listItem.lastName;
+    clone.querySelector("[data-field=houseName]").textContent = listItem.house;
 
-//filter by prefects
+    document.querySelector("#list tbody").appendChild(clone);
+}
 
-//filter by inquisitors
+
 
 
 //sort the data
@@ -194,8 +255,10 @@ function displayList() {
 //sort by house
 
 
-//open student page 
-
+// open student page 
+// function addClick() {
+//     document.addEventListener
+// }
 
 //display student information
 

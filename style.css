@@ -3,19 +3,20 @@
 /* intialise view */
 * {
     margin: 0;
-    list-style: none;
+    padding: 0;
 }
 
 
     /* layout and parent divs */
 .backGround {
-        width: 100vw;
-        height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
         background-image: url(/assets/otherImg/woodenDessk.jpeg);
         background-size: cover;
     }
+
     .fancyContainer {
         background-color: hsla(100, 0%, 0%, 40%) ;
         width: 80%;
@@ -28,28 +29,53 @@
         text-align: center;
     }
 
-    p {
+    p, td {
         font-family: turnip-re, serif;
         font-weight: 400;
         font-style: normal;
     }
+    thead {
+        top: 0;
+        position: sticky;
+    }
+    td {
+        font-size: 0.9rem;
+        height: 5%;
+        text-align: left;
+        color: hsl(42, 40%, 42%);
+    }
 
-.fancyFont {
-    font-family: nautica, sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    color: #C9C152;
-}
+  tr:nth-child(even) {
+    background-color: hsla(42, 40%, 100%, 30%);
+  }
+
+    td:hover {
+        cursor: pointer;
+    }
+
+    .fancyFont {
+        font-family: nautica, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        color: #C9C152;
+    }
+
+    .bodyText {
+        font-family: turnip-re, sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
 
     /* style variables */
 
 /* initialise first page  */
+
 .pageOne {
     justify-self: end;
     display: grid;
     grid-template-rows: 10% 7% 1fr ;
     background-color: #DEC791;
-    height: 90%;
+    max-height: 75%;
     width: 90%;
     margin-top: 5%;
     margin-left: 5%;
@@ -57,13 +83,26 @@
     border-left: solid 15px #A33434;
     border-bottom: solid 15px #A33434;
     border-right: solid 2px #967c41;
+    box-shadow: inset -60px 0px 190px #967c41;
 }
 
     /* control bars */
 .filtering { 
-    margin-top: 5%;
+    display: flex;
     margin-left: 5%;
-    padding-left: 5%;
+    margin-top: 2%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+}
+
+button {
+    padding: 1%;
+    height: 60%;
+    font-family: turnip-re, sans-serif;
+    font-size: 0.6rem;
 }
 
 .search {
@@ -77,15 +116,33 @@
 
 .studentDisplay {
     width: 90%;
-    border: red solid 1px;
+    border: #967c41 solid 2px;
     margin-left: 5%;
     height: 95%;
     overflow-y: scroll;
 }
 
-    /* list/database */
+/* list/database */
 
-    /* counters display */
+table {
+    width: 100%;
+}
+
+.header {
+    font-size: 1.1rem;
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color: #F2EAD1;
+}
+
+td:hover {
+    color: black;
+}
+
+/* counters display */
+
 
 /* initialise second page */
 
@@ -93,13 +150,15 @@
     display:grid;
     grid-template-rows: 15% 1fr;
     background-color: #DEC791;
-    height: 90%;
+    height: 75%;
     width: 90%;
     margin-top: 5%;
     margin-right: 5%;
     border-top: solid 15px #A33434;
     border-right: solid 15px #A33434;
     border-bottom: solid 15px #A33434;
+    box-shadow: inset 60px 0px 190px #7b6227;
+
 }
 
 .title {
@@ -115,23 +174,105 @@
 
 .studentCard {
     background-color: #F2EAD1;
-    width: 90%;
-    height: 90%;
+    width: 87%;
+    height: 81%;
     margin-top: 5%;
     margin-left: 5%;
+    display: grid;
+    padding: 2%;
+    grid-template-columns: 35% 30% 1fr;
+    grid-template-rows: 5% 20% repeat(2, 1fr);
+    gap: 20px;
+    box-shadow: inset 60px 0px 40px #ddca9e;
+
+
 }
     /* student picture */
 
+.studentPic {
+    background-image: url(/assets/studentImg/malfoy_d.png);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    background-position: center;
+}
 
+.studentName {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    padding: auto;
+    font-size: 2rem;
+}
 
     /* description text w/spans */
+.scriptText {
+    grid-row: 3 / 4;
+    grid-column: 1 / 3;
+    line-height: 200%;
+    padding: 5%;
+}
 
+.scriptText > h2 {
+    font-size: 2rem;
+}
+
+.scriptText > span {
+    text-decoration: underline;
+}
     /* icons and status */
+.iconBox{
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+}
+
+.iconText {
+    font-size: 0.8rem;
+    margin-left: 25%;
+}
+
+#bloodPoint {
+    list-style-image: url(/assets/icons/drop.png);
+}
+
+#prefectPoint {
+    list-style-image: url(/assets/icons/star.png);
+}
+
+#inquisitorPoint {
+    list-style-image: url(/assets/icons/cross.png);
+}
 
     /* house crest */
 
-    /* student controls */
+.houseCrest {
+    grid-column: 3 / 4;
+    grid-row: 3 / 5;
+}
 
+.houseImg {
+    height:100%;
+    width: 100%;
+    box-shadow: rgb(136, 225, 136) 2px 2px 20px 10px;
+}
+
+/* student controls */
+.actions {
+    grid-column: 1 / 3;
+    grid-row: 4 / 6;
+    font-size: 1.4rem;
+} 
+
+.actionList {
+    list-style: none;
+    line-height: 200%;
+}
+
+.actionList:hover {
+    cursor: pointer;
+}
 /* pop up display */
 
     /* expel confirm feedback*/
