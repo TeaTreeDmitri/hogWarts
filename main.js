@@ -7,6 +7,15 @@ let middleName;
 let lastName;
 let imageTag1;
 let imageTag2;
+let index = 0;
+
+let selectedStudent;
+
+const settings = {
+    filterBy: "all",
+    sortBy: "name",
+    sortDir: "asc"
+}
 
 
 //global objects
@@ -27,13 +36,14 @@ const Student = {
     isPrefect: "",
     isInquisitor: "",
     isExpelled: "",
+    studentId: ""
 }
 
-
+// *INITIALISE /////////////////////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener("DOMContentLoaded", event => {
     initialise();
-    addButtons();
+
 })
 
 
@@ -42,25 +52,27 @@ document.addEventListener("DOMContentLoaded", event => {
 async function initialise() {
     await loadNames();
     // await loadBlood();
-    prepareObjects();
+    addButtons();
 }
 
 //add eventListeners 
 
 function addButtons() {
+    // console.log("addButtons()")
     document.querySelectorAll("[data-action='filter']")
-        .forEach(button => button.addEventListener("click", selectFilter))
+        .forEach(button => button.addEventListener("click", selectFilter));
 
     document.querySelectorAll("[data-action='sort']")
-        .forEach(button => button.addEventListener("click", selectSort))
+        .forEach(button => button.addEventListener("click", selectSort));
+
 }
 
 //fetch names 
 async function loadNames() {
     const nameData = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
     studentNames = await nameData.json();
+    // studentNames.forEach((data) => (data.index = index++))
     prepareObjects(studentNames);
-
 }
 
 //fetch images
@@ -78,8 +90,14 @@ function prepareObjects(names) {
     // addClick();
 }
 
+// * DATA PROCESS/ The Model///////////////////////////////////////////////////////////////////////////////////
+
 //clean up the name data 
 function prepareData(el) {
+
+
+    el.index = index++
+    
     // trim whitespace from edges
     el.fullname = el.fullname.trim();
 
@@ -147,6 +165,9 @@ function prepareData(el) {
         middleName = "null"
         lastName = "null"
     };
+
+
+
     // console.log("Fullname: ", el.fullname);
     // console.log("First Name: ", firstName);
     // console.log("Middle Name: ", middleName);
@@ -164,6 +185,7 @@ function prepareData(el) {
     student.nickName = nickName;
     student.house = houseName;
     student.gender = studentGender;
+    student.studentId = index;
 
     return student;
 }
@@ -172,22 +194,27 @@ function prepareData(el) {
 function selectFilter(event) {
     const filter = event.target.dataset.filter;
     console.log("User selected: ", filter);
-    filterList(filter)
+    setFilter(filter);
 }
 
-function filterList(filterBy) {
-    let filteredList = allStudents;
-    if (filterBy === "Gryffindor") {
+function setFilter(filter) {
+    settings.filterBy = filter;
+    buildList();
+}
+
+function filterList(filteredList) {
+    // let filteredList = allStudents;
+    if (settings.filterBy === "Gryffindor") {
         filteredList = allStudents.filter(isGryff);
-    } else if (filterBy === "Slytherin") {
+    } else if (settings.filterBy === "Slytherin") {
         filteredList = allStudents.filter(isSlyth);
-    } else if (filterBy === "Ravenclaw") {
+    } else if (settings.filterBy === "Ravenclaw") {
         filteredList = allStudents.filter(isRave);
-    } else if (filterBy === "Hufflepuff") {
+    } else if (settings.filterBy === "Hufflepuff") {
         filteredList = allStudents.filter(isHuff);
     }
 
-    displayList(filteredList)
+    return filteredList;
 }
 //filter by attending/expelled
 
@@ -226,35 +253,45 @@ function selectSort(event) {
         event.target.dataset.sortDirection = "asc"
     }
     console.log("User selected: ", sortBy, sortDir);
-    sortList(sortBy, sortDir);
+    setSort(sortBy, sortDir);
 }
 
+function setSort(sortBy, sortDir) {
+    settings.sortBy = sortBy;
+    settings.sortDir = sortDir;
+    buildList();
+
+}
 //sort by first name / last name / house
-function sortList(sortBy, sortDir) {
-    let sortedList = allStudents;
+function sortList(sortedList) {
     let direction;
-    if (sortDir === "desc") {
+    if (settings.sortDir === "desc") {
         direction = 1
     } else {
         direction = -1;
-    }
+    };
 
-
-    sortedList = sortedList.sort(sortByProperty)
+    sortedList = sortedList.sort(sortByProperty);
 
     function sortByProperty(studentA, studentB) {
-        if (studentA[sortBy] < studentB[sortBy]) {
+        if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
             return -1 * direction;
         } else {
             return 1 * direction;
         }
     }
-
-    displayList(sortedList)
+    return sortedList;
 }
 
-
+//*DISPLAY FUNCTIONS /The View //////////////////////////////////////////////////////////////////////////////////////////////
 //display the data 
+
+function buildList() {
+    const currentList = filterList(allStudents);
+    const sortedList = sortList(currentList);
+
+    displayList(sortedList);
+}
 
 function displayList(students) {
 
@@ -269,24 +306,51 @@ function displayStudents(listItem) {
     //create clone
     const clone = document.querySelector("template#student").content.cloneNode(true);
 
-
     //set clone data 
     clone.querySelector("[data-field=firstName]").textContent = listItem.firstName;
     clone.querySelector("[data-field=lastName]").textContent = listItem.lastName;
     clone.querySelector("[data-field=houseName]").textContent = listItem.house;
+    clone.querySelector(".studentRow").id = listItem.studentId;
 
+    //print clone
     document.querySelector("#list tbody").appendChild(clone);
+    document.querySelectorAll(".studentRow").forEach(button => button.addEventListener("click", displayStudentPage));
 }
 
 
 
 
 // open student page 
-// function addClick() {
-//     document.addEventListener
-// }
+
+function displayStudentPage(event) {
+    let selectedId = event.target.parentElement.id;
+    selectedId = parseInt(selectedId);
+    findStudent(selectedId)
+    }
+
+function findStudent(selectedId) {
+    console.log("ID of chosen student is", selectedId)
+    let foundStudent = allStudents.find(hasID);
+
+    function hasID(object) {
+        console.log("compare: ", object.studentId);
+        console.log("with: ", selectedId);
+        if ( object.studentId === selectedId) {
+            return object.studentId
+        }
+    }
+
+    console.log("Student to display is: ", foundStudent);
+    populatePage(foundStudent)
+}
 
 //display student information
+
+function populatePage(student) {
+    console.log("populatePage");
+
+    document.querySelector("#studentTitle").textContent = student.firstName + " " + student.lastName;
+}
 
 
 //expel function

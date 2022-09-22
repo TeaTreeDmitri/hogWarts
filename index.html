@@ -32,7 +32,7 @@
               <thead class="tableHeader fancyFont fancyContainer">
                 <th data-action="sort" data-sort-direction="asc" data-sort="firstName"class="header">First Name</th>
                 <th data-action="sort" data-sort-direction="asc" data-sort="lastName"class="header">Last Name</th>
-                <th data-action="sort" data-sort-direction="asc" data-sort="house"class="header">House Name</th>
+                <th data-action="sort" data-sort-direction="asc" data-sort="house"class="header" >House Name</th>
               </thead>
               <tbody>
                 <!-- student data will be copied and insterted here -->
@@ -46,7 +46,7 @@
           </div>
           <div class="studentCard">
             <div class="studentPic"></div>
-              <div class="studentName bodyText">Draco Malfoy</div>
+              <div ><p class="bodyText" id="studentTitle">Draco Malfoy</p></div>
               <div class="iconBox">
               <ul class="iconText">
                 <li class="bodyText" id="bloodPoint">Pure-Blood</li>
@@ -74,7 +74,7 @@
       </div>
     </main>
     <template id="student">
-      <tr>
+      <tr class="studentRow" id=" ">
         <td data-field="firstName">First Name</td>
         <td data-field="lastName">Last Name</td>
         <td data-field="houseName">House</td>
