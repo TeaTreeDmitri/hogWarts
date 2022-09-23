@@ -43,7 +43,6 @@ const Student = {
 
 document.addEventListener("DOMContentLoaded", event => {
     initialise();
-
 })
 
 
@@ -71,6 +70,7 @@ function addButtons() {
 async function loadNames() {
     const nameData = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
     studentNames = await nameData.json();
+
     // studentNames.forEach((data) => (data.index = index++))
     prepareObjects(studentNames);
 }
@@ -165,17 +165,16 @@ function prepareData(el) {
         middleName = "null"
         lastName = "null"
     };
+    
+    //associate images with students
+        //BEWARE FORWARD SLASH BEFORE FILE NAME MIGHT BE NECESSARY DEPENDING ON FILE STRUCTURE
+        if (lastName) {
+            imageTag1 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
+            imageTag2 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase() + ".png";
+        } else {
+            imageTag1 = "/assets/studentImg/default.jpeg"
+        }
 
-
-
-    // console.log("Fullname: ", el.fullname);
-    // console.log("First Name: ", firstName);
-    // console.log("Middle Name: ", middleName);
-    // console.log("Last Name: ", lastName);
-    // console.log("Nickname: ", nickName);
-    // console.log("House: ", houseName);
-    // console.log("Gender: ", studentGender);
-    // console.log(" ");
 
     //put variables into newobjects
     const student = Object.create(Student);
@@ -186,6 +185,8 @@ function prepareData(el) {
     student.house = houseName;
     student.gender = studentGender;
     student.studentId = index;
+    student.studentImg1 = imageTag1;
+    student.studentImg2 = imageTag2;
 
     return student;
 }
@@ -350,6 +351,25 @@ function populatePage(student) {
     console.log("populatePage");
 
     document.querySelector("#studentTitle").textContent = student.firstName + " " + student.lastName;
+    document.querySelector("#studentPic1").style.backgroundImage = "url(" + student.studentImg1 + ")";
+    document.querySelector("#studentPic2").style.backgroundImage = "url(" + student.studentImg2 + ")";
+    document.querySelector("#houseImg").src = "/assets/otherImg/" + student.house + ".jpg";
+
+    setGlow(student)
+}
+
+function setGlow(student) {
+    let box = document.querySelector("#houseImg");
+    if (student.house === "Gryffindor") {
+        box.style.boxShadow = "rgb(226, 51, 51) 2px 2px 20px 10px";
+    } else if (student.house === "Slytherin") {
+        box.style.boxShadow = "rgb(136, 225, 136) 2px 2px 20px 10px";
+    } else if (student.house === "Ravenclaw") {
+        box.style.boxShadow = "rgb(16, 49, 137) 2px 2px 20px 10px";
+    } else if (student.house === "Hufflepuff") {
+        box.style.boxShadow = "rgb(186, 122, 28) 1px 1px 20px 10px";
+    }
+    
 }
 
 
