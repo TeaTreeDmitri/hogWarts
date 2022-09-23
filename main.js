@@ -9,7 +9,8 @@ let imageTag1;
 let imageTag2;
 let index = 0;
 
-let selectedStudent;
+let foundStudent;
+
 
 const settings = {
     filterBy: "all",
@@ -20,6 +21,8 @@ const settings = {
 
 //global objects
 let allStudents = [];
+
+let expelledStudents = [];
 
 // create template for student data
 
@@ -213,6 +216,9 @@ function filterList(filteredList) {
         filteredList = allStudents.filter(isRave);
     } else if (settings.filterBy === "Hufflepuff") {
         filteredList = allStudents.filter(isHuff);
+    } else if (settings.filterBy === "Expelled") {
+        filteredList = expelledStudents;
+        displayList(expelledStudents);
     }
 
     return filteredList;
@@ -320,7 +326,6 @@ function displayStudents(listItem) {
 
 
 
-
 // open student page 
 
 function displayStudentPage(event) {
@@ -331,7 +336,7 @@ function displayStudentPage(event) {
 
 function findStudent(selectedId) {
     console.log("ID of chosen student is", selectedId)
-    let foundStudent = allStudents.find(hasID);
+    foundStudent = allStudents.find(hasID);
 
     function hasID(object) {
         console.log("compare: ", object.studentId);
@@ -354,7 +359,16 @@ function populatePage(student) {
     document.querySelector("#studentPic1").style.backgroundImage = "url(" + student.studentImg1 + ")";
     document.querySelector("#studentPic2").style.backgroundImage = "url(" + student.studentImg2 + ")";
     document.querySelector("#houseImg").src = "/assets/otherImg/" + student.house + ".jpg";
+    document.querySelector("#spanFirst").textContent = student.firstName;
+    //add span for prefect #spanPrefect
+    //add span for attending #spanExpel
+    //add span for blood type
+    //add span for inquisition #spanInquisitor
 
+    //set action event listeners
+    document.querySelector("#expelButton").addEventListener("click", expel)
+
+    //set animations and effects
     setGlow(student)
 }
 
@@ -374,10 +388,55 @@ function setGlow(student) {
 
 
 //expel function
+// function expel() {
+//     allStudents.find(findId)
 
-//configure pop up
+// }
 
-//display pop up
+// function findId(object) {
+//     console.log("compare: ", object.studentId);
+//     console.log("with: ", foundStudent.studentId - 1);
+//     if (object.studentId === foundStudent.studentId - 1) {
+//         return object.studentId;
+//     }
+//     expelRemove(object);
+
+//     function expelRemove(object) {
+//         console.log(object);
+//     }
+// }
+function expel() {
+    console.log("ID of expelled student is", foundStudent.studentId);
+    let expelledStudent = allStudents.find(hasID);
+
+    function hasID(object) {
+        console.log("compare: ", object.studentId);
+        console.log("with: ", foundStudent.studentId);
+        if ( object.studentId === foundStudent.studentId) {
+            return object.studentId;
+        }
+    }
+
+    console.log("Student to display is: ", expelledStudent);
+    addExpelled(expelledStudent);
+}
+
+function addExpelled(student) {
+    expelledStudents.push(student);
+    removeExpelled(student)
+}
+
+function removeExpelled(student) {
+    let removeMe = student.studentId -1
+    allStudents.splice(removeMe, 1);
+    displayList(allStudents);
+}
+
+
+
+
+//displayList
+
 
 
 //prefect function

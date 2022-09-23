@@ -13,14 +13,51 @@
         <div class="pageOne">
           <div class="filtering fancyContainer">
             <h2 class="fancyFont">Filters:</h2>
-            <button class="filterButton" data-action="filter" data-filter="Attending">Attending</button>
-            <button class="filterButton" data-action="filter" data-filter="Hufflepuff">HufflePuff</button>
-            <button class="filterButton" data-action="filter" data-filter="Gryffindor">Gryffindor</button>
-            <button class="filterButton" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button>
-            <button class="filterButton" data-action="filter" data-filter="Slytherin">Slytherin</button>
-            <button class="filterButton" data-action="filter" data-filter="Prefects">Prefects</button>
-            <button class="filterButton" data-action="filter" data-filter="*">Show all</button>
-
+            <button
+              class="filterButton"
+              data-action="filter"
+              data-filter="Expelled"
+            >
+              Expelled
+            </button>
+            <button
+              class="filterButton"
+              data-action="filter"
+              data-filter="Hufflepuff"
+            >
+              HufflePuff
+            </button>
+            <button
+              class="filterButton"
+              data-action="filter"
+              data-filter="Gryffindor"
+            >
+              Gryffindor
+            </button>
+            <button
+              class="filterButton"
+              data-action="filter"
+              data-filter="Ravenclaw"
+            >
+              Ravenclaw
+            </button>
+            <button
+              class="filterButton"
+              data-action="filter"
+              data-filter="Slytherin"
+            >
+              Slytherin
+            </button>
+            <button
+              class="filterButton"
+              data-action="filter"
+              data-filter="Prefects"
+            >
+              Prefects
+            </button>
+            <button class="filterButton" data-action="filter" data-filter="*">
+              Show all
+            </button>
           </div>
           <div class="search">
             <label for="searchMe" class="search"
@@ -30,9 +67,30 @@
           <div class="studentDisplay">
             <table class="studentTable" id="list">
               <thead class="tableHeader fancyFont fancyContainer">
-                <th data-action="sort" data-sort-direction="asc" data-sort="firstName"class="header">First Name</th>
-                <th data-action="sort" data-sort-direction="asc" data-sort="lastName"class="header">Last Name</th>
-                <th data-action="sort" data-sort-direction="asc" data-sort="house"class="header" >House Name</th>
+                <th
+                  data-action="sort"
+                  data-sort-direction="asc"
+                  data-sort="firstName"
+                  class="header"
+                >
+                  First Name
+                </th>
+                <th
+                  data-action="sort"
+                  data-sort-direction="asc"
+                  data-sort="lastName"
+                  class="header"
+                >
+                  Last Name
+                </th>
+                <th
+                  data-action="sort"
+                  data-sort-direction="asc"
+                  data-sort="house"
+                  class="header"
+                >
+                  House Name
+                </th>
               </thead>
               <tbody>
                 <!-- student data will be copied and insterted here -->
@@ -48,29 +106,40 @@
             <div class="studentPic" id="studentPic1"></div>
             <div class="studentPic" id="studentPic2"></div>
 
-              <div class="studentName"><p class="bodyText" id="studentTitle"></p></div>
-              <div class="iconBox">
+            <div class="studentName">
+              <p class="bodyText" id="studentTitle"></p>
+            </div>
+            <div class="iconBox">
               <ul class="iconText">
                 <li class="bodyText" id="bloodPoint">Pure-Blood</li>
                 <li class="bodyText" id="prefectPoint">Not a Prefect</li>
                 <li class="bodyText" id="inquisitorPoint">Not an Inquisitor</li>
               </ul>
             </div>
-              <div class="scriptText">
-                <h2 class="fancyFont">Draco is a prefect, has not been expelled
-                  yet, is of pure-blood and is currently
-                  a member of the inquisition </h2>
-              </div>
-              <div class="houseCrest">
-                <img class="throbbing"id="houseImg" src="/assets/otherImg/defaultHouse.jpg" alt="House crest">
-              </div>
-              <div class="actions">
-                <ul class="actionList">
-                  <li class="bodyText">Fire inquisitor</li>
-                  <li class="bodyText">Hire Prefect</li>
-                  <li class="bodyText">Expell Student!</li>
-                </ul>
-              </div>
+            <div class="scriptText">
+              <h2 class="fancyFont">
+                <span id="spanFirst">Draco</span>
+                <span id="spanPrefect">is a prefect,</span>
+                <span id="spanExpel">has not been expelled yet,</span>
+                <span id="spanBlood">is of pure-blood </span>
+                <span id="#spanInquisitor">and is currently a member ofthe inquisition</span>
+              </h2>
+            </div>
+            <div class="houseCrest">
+              <img
+                class="throbbing"
+                id="houseImg"
+                src="/assets/otherImg/defaultHouse.jpg"
+                alt="House crest"
+              />
+            </div>
+            <div class="actions">
+              <ul class="actionList">
+                <li class="bodyText" id="inquisitorButton">Fire inquisitor</li>
+                <li class="bodyText" id="perfectButton">Hire Prefect</li>
+                <li class="bodyText" id="expelButton">Expel Student!</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
