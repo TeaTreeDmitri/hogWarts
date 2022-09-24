@@ -430,6 +430,7 @@ function findStudent(selectedId) {
 
 function populatePage(student) {
     console.log("populatePage");
+    document.querySelector(".pageTwoContainer").classList.add("hidden");
     //Todo add Finch Fetchley picture grab
     document.querySelector("#studentTitle").textContent = student.firstName + " " + student.lastName;
     document.querySelector("#studentPic1").style.backgroundImage = "url(" + student.studentImg1 + ")";
@@ -530,6 +531,7 @@ function makePrefect() {
             prefect.isPrefect = "Prefect"
             document.querySelector("#prefectPoint").textContent = "Is a Prefect";
         } else if (prefect.isPrefect){
+            console.log("fired Prefect")
             houseArray = houseArray.filter(data => data.studentId - 1 !== studentNumber);
             prefect.isPrefect = "";
             document.querySelector("#prefectButton").textContent = "Hire Prefect";

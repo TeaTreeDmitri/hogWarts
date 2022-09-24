@@ -6,6 +6,9 @@
     padding: 0;
 }
 
+.hidden {
+    display: none;
+}
 
     /* layout and parent divs */
 .backGround {
@@ -145,6 +148,29 @@ td:hover {
 
 
 /* initialise second page */
+
+#pageCover {
+    display: grid;
+    background-color: #DEC791;
+    place-items: center;
+    height: 75%;
+    width: 90%;
+    height: 75%;
+    width: 90%;
+    margin-top: 5%;
+    margin-right: 5%;
+    border-top: solid 15px #A33434;
+    border-right: solid 15px #A33434;
+    border-bottom: solid 15px #A33434;
+    box-shadow: inset 60px 0px 190px #7b6227;
+}
+
+#pageCover > Img {
+    border: black 20px solid;
+    height: 50%;
+    mix-blend-mode: overlay;
+    opacity: 0.7;
+}
 
 .pageTwo {
     display:grid;
