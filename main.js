@@ -69,7 +69,6 @@ async function initialise() {
 //add eventListeners 
 
 function addButtons() {
-    // console.log("addButtons()")
     document.querySelectorAll("[data-action='filter']")
         .forEach(button => button.addEventListener("click", selectFilter));
 
@@ -353,7 +352,6 @@ function assignBlood(bloodList) {
     allStudents.forEach(findBlood)
 
     function findBlood(student) {
-        console.log(student);
         lastName = student.lastName
         if (pureList.includes(lastName)) {
             student.bloodType = "Pure";
@@ -438,13 +436,14 @@ function populatePage(student) {
     document.querySelector("#studentPic2").style.backgroundImage = "url(" + student.studentImg2 + ")";
     document.querySelector("#houseImg").src = "/assets/otherImg/" + student.house + ".jpg";
     document.querySelector("#spanFirst").textContent = student.firstName;
+    document.querySelector("#prefectButton").textCotnent = "Make Prefect";
 
 
     //add blood
     document.querySelector("#bloodPoint").textContent = student.bloodType + "-Blood";
 
     //add prefect
-    if (student.isPrefect === "Prefect") {
+    if (student.isPrefect) {
         document.querySelector("#prefectPoint").textContent = "Is a prefect"
     } else {
         document.querySelector("#prefectPoint").textContent = "Not a prefect"
@@ -506,8 +505,7 @@ function removeExpelled(student) {
     allStudents.splice(removeMe, 1);
     displayList(allStudents);
 }
-
-//prefect function
+// Prefects
 
 function makePrefect() {
     let studentNumber = foundStudent.studentId - 1;
@@ -515,34 +513,41 @@ function makePrefect() {
     let prefect = allStudents[studentNumber]
     if (foundStudent.house === "Hufflepuff") {
         houseArray = hufflepuffPrefects;
-
     } else if (foundStudent.house === "Gryffindor") {
         houseArray = gryffindorPrefects;
-
     } else if (foundStudent.house === "Ravenclaw") {
         houseArray = ravenclawPrefects;
-
     } else if (foundStudent.house === "Slytherin") {
         houseArray = slytherinPrefects;
-
     }
     checkPrefects()
 
     function checkPrefects() {
-        if (houseArray.length < 2 && prefect.isPrefect !== "Prefect") {
-            houseArray.push(prefect)
-            displayPrefect(prefect);
+        if (houseArray.length < 2 && !prefect.isPrefect) {
+            console.log("hired Prefect")
+            houseArray.push(prefect);
+            document.querySelector("#prefectButton").textContent = "Fire Prefect";
+            prefect.isPrefect = "Prefect"
+            document.querySelector("#prefectPoint").textContent = "Is a Prefect";
+        } else if (prefect.isPrefect){
+            houseArray = houseArray.filter(data => data.studentId - 1 !== studentNumber);
+            prefect.isPrefect = "";
+            document.querySelector("#prefectButton").textContent = "Hire Prefect";
+            document.querySelector("#prefectPoint").textContent = "Not a Prefect";
+            if (prefect.house === "Hufflepuff") {
+                hufflepuffPrefects = houseArray;
+            } else if (foundStudent.house === "Gryffindor") {
+                gryffindorPrefects  = houseArray;
+            } else if (foundStudent.house === "Ravenclaw") {
+                ravenclawPrefects  = houseArray;
+            } else if (foundStudent.house === "Slytherin") {
+                slytherinPrefects  = houseArray;
+            }
         } else {
-            prefectPopUp()
+            prefectPopUp();
         };
     }
 
-}
-
-function displayPrefect(prefect) {
-    console.log("displayPrefect()")
-    prefect.isPrefect = "Prefect"
-    document.querySelector("#prefectPoint").textContent = "Is a Prefect"
 }
 
 
