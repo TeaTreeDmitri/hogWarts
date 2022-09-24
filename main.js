@@ -1,3 +1,8 @@
+//Todo Add expel are you sure?? pop up and animations
+//Todo Add expel animations! Big red cross??
+//Todo Add Finch Fetchley picture grab
+//Todo Configure Error pop ups
+
 "use strict"
 
 //global variables
@@ -14,6 +19,7 @@ let foundStudent;
 
 const settings = {
     filterBy: "all",
+    searchBy: "all",
     sortBy: "name",
     sortDir: "asc"
 }
@@ -21,8 +27,11 @@ const settings = {
 
 //global objects
 let allStudents = [];
-
 let expelledStudents = [];
+let hufflepuffPrefects = [];
+let gryffindorPrefects = [];
+let ravenclawPrefects = [];
+let slytherinPrefects = [];
 
 // create template for student data
 
@@ -53,7 +62,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
 async function initialise() {
     await loadNames();
-    // await loadBlood();
+    await loadBlood();
     addButtons();
 }
 
@@ -82,10 +91,11 @@ async function loadNames() {
 
 
 //fetch blood status
-// async function loadBlood() {
-//     const bloodData = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
-//     const studentBlood = await bloodData.json();
-// }
+async function loadBlood() {
+    const bloodData = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
+    const studentBlood = await bloodData.json();
+    assignBlood(studentBlood);
+}
 
 function prepareObjects(names) {
     allStudents = names.map(prepareData);
@@ -100,7 +110,7 @@ function prepareData(el) {
 
 
     el.index = index++
-    
+
     // trim whitespace from edges
     el.fullname = el.fullname.trim();
 
@@ -168,15 +178,15 @@ function prepareData(el) {
         middleName = "null"
         lastName = "null"
     };
-    
+
     //associate images with students
-        //BEWARE FORWARD SLASH BEFORE FILE NAME MIGHT BE NECESSARY DEPENDING ON FILE STRUCTURE
-        if (lastName) {
-            imageTag1 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
-            imageTag2 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase() + ".png";
-        } else {
-            imageTag1 = "/assets/studentImg/default.jpeg"
-        }
+    //BEWARE FORWARD SLASH BEFORE FILE NAME MIGHT BE NECESSARY DEPENDING ON FILE STRUCTURE
+    if (lastName) {
+        imageTag1 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
+        imageTag2 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase() + ".png";
+    } else {
+        imageTag1 = "/assets/studentImg/default.jpeg"
+    }
 
 
     //put variables into newobjects
@@ -190,6 +200,7 @@ function prepareData(el) {
     student.studentId = index;
     student.studentImg1 = imageTag1;
     student.studentImg2 = imageTag2;
+    student.isPrefect = ""
 
     return student;
 }
@@ -208,7 +219,11 @@ function setFilter(filter) {
 
 function filterList(filteredList) {
     // let filteredList = allStudents;
-    if (settings.filterBy === "Gryffindor") {
+    if (settings.filterBy === "all") {
+        filteredList = allStudents;
+    } else if (settings.filterBy === "Prefects") {
+        filteredList = allStudents.filter(isPref);
+    } else if (settings.filterBy === "Gryffindor") {
         filteredList = allStudents.filter(isGryff);
     } else if (settings.filterBy === "Slytherin") {
         filteredList = allStudents.filter(isSlyth);
@@ -220,7 +235,6 @@ function filterList(filteredList) {
         filteredList = expelledStudents;
         displayList(expelledStudents);
     }
-
     return filteredList;
 }
 //filter by attending/expelled
@@ -242,6 +256,12 @@ function isRave(item) {
 function isHuff(item) {
     return item.house === "Hufflepuff"
 }
+
+function isPref(item) {
+    return item.isPrefect === "Prefect"
+}
+
+
 
 //filter by prefects
 
@@ -301,7 +321,6 @@ function buildList() {
 }
 
 function displayList(students) {
-
     //clear the list
     document.querySelector("#list tbody").innerHTML = "";
 
@@ -322,8 +341,67 @@ function displayStudents(listItem) {
     //print clone
     document.querySelector("#list tbody").appendChild(clone);
     document.querySelectorAll(".studentRow").forEach(button => button.addEventListener("click", displayStudentPage));
+    addSearch()
 }
 
+//assign Blood Status
+
+function assignBlood(bloodList) {
+
+    const pureList = bloodList.pure;
+    const halfList = bloodList.half;
+    allStudents.forEach(findBlood)
+
+    function findBlood(student) {
+        console.log(student);
+        lastName = student.lastName
+        if (pureList.includes(lastName)) {
+            student.bloodType = "Pure";
+        } else if (halfList.includes(lastName)) {
+            student.bloodType = "Half"
+        } else student.bloodType = "Muggle"
+    }
+}
+
+
+
+
+// activate search
+
+
+function addSearch() {
+    document.querySelector("#searchBar").addEventListener("keyup", setSearchTerm);
+}
+
+function setSearchTerm() {
+    let searchTerm = document.querySelector("#searchBar").value;
+    console.log(searchTerm);
+
+    setSearch(searchTerm)
+}
+
+function setSearch(term) {
+    settings.searchBy = term;
+    console.log(term);
+    displayResults();
+}
+
+function findMatches(allStuds) {
+    allStuds = allStudents.filter(findMe);
+
+    function findMe(student) {
+        let stringValues = Object.values(student).toString();
+        stringValues = stringValues.toLowerCase();
+        return stringValues.includes(settings.searchBy)
+    }
+    return allStuds
+}
+
+function displayResults() {
+    console.log("displayresults")
+    const searchedList = findMatches(allStudents);
+    displayList(searchedList)
+}
 
 
 // open student page 
@@ -332,7 +410,7 @@ function displayStudentPage(event) {
     let selectedId = event.target.parentElement.id;
     selectedId = parseInt(selectedId);
     findStudent(selectedId)
-    }
+}
 
 function findStudent(selectedId) {
     console.log("ID of chosen student is", selectedId)
@@ -341,7 +419,7 @@ function findStudent(selectedId) {
     function hasID(object) {
         console.log("compare: ", object.studentId);
         console.log("with: ", selectedId);
-        if ( object.studentId === selectedId) {
+        if (object.studentId === selectedId) {
             return object.studentId
         }
     }
@@ -354,19 +432,32 @@ function findStudent(selectedId) {
 
 function populatePage(student) {
     console.log("populatePage");
-
+    //Todo add Finch Fetchley picture grab
     document.querySelector("#studentTitle").textContent = student.firstName + " " + student.lastName;
     document.querySelector("#studentPic1").style.backgroundImage = "url(" + student.studentImg1 + ")";
     document.querySelector("#studentPic2").style.backgroundImage = "url(" + student.studentImg2 + ")";
     document.querySelector("#houseImg").src = "/assets/otherImg/" + student.house + ".jpg";
     document.querySelector("#spanFirst").textContent = student.firstName;
-    //add span for prefect #spanPrefect
+
+
+    //add blood
+    document.querySelector("#bloodPoint").textContent = student.bloodType + "-Blood";
+
+    //add prefect
+    if (student.isPrefect === "Prefect") {
+        document.querySelector("#prefectPoint").textContent = "Is a prefect"
+    } else {
+        document.querySelector("#prefectPoint").textContent = "Not a prefect"
+    }
+
     //add span for attending #spanExpel
     //add span for blood type
     //add span for inquisition #spanInquisitor
 
     //set action event listeners
     document.querySelector("#expelButton").addEventListener("click", expel)
+    document.querySelector("#prefectButton").addEventListener("click", makePrefect)
+    //Todo Add expel are you sure?? pop up
 
     //set animations and effects
     setGlow(student)
@@ -383,28 +474,12 @@ function setGlow(student) {
     } else if (student.house === "Hufflepuff") {
         box.style.boxShadow = "rgb(186, 122, 28) 1px 1px 20px 10px";
     }
-    
+
 }
 
 
 //expel function
-// function expel() {
-//     allStudents.find(findId)
 
-// }
-
-// function findId(object) {
-//     console.log("compare: ", object.studentId);
-//     console.log("with: ", foundStudent.studentId - 1);
-//     if (object.studentId === foundStudent.studentId - 1) {
-//         return object.studentId;
-//     }
-//     expelRemove(object);
-
-//     function expelRemove(object) {
-//         console.log(object);
-//     }
-// }
 function expel() {
     console.log("ID of expelled student is", foundStudent.studentId);
     let expelledStudent = allStudents.find(hasID);
@@ -412,7 +487,7 @@ function expel() {
     function hasID(object) {
         console.log("compare: ", object.studentId);
         console.log("with: ", foundStudent.studentId);
-        if ( object.studentId === foundStudent.studentId) {
+        if (object.studentId === foundStudent.studentId) {
             return object.studentId;
         }
     }
@@ -427,23 +502,58 @@ function addExpelled(student) {
 }
 
 function removeExpelled(student) {
-    let removeMe = student.studentId -1
+    let removeMe = student.studentId - 1
     allStudents.splice(removeMe, 1);
     displayList(allStudents);
 }
 
-
-
-
-//displayList
-
-
-
 //prefect function
 
-//configure pop up
+function makePrefect() {
+    let studentNumber = foundStudent.studentId - 1;
+    let houseArray = [];
+    let prefect = allStudents[studentNumber]
+    if (foundStudent.house === "Hufflepuff") {
+        houseArray = hufflepuffPrefects;
+
+    } else if (foundStudent.house === "Gryffindor") {
+        houseArray = gryffindorPrefects;
+
+    } else if (foundStudent.house === "Ravenclaw") {
+        houseArray = ravenclawPrefects;
+
+    } else if (foundStudent.house === "Slytherin") {
+        houseArray = slytherinPrefects;
+
+    }
+    checkPrefects()
+
+    function checkPrefects() {
+        if (houseArray.length < 2 && prefect.isPrefect !== "Prefect") {
+            houseArray.push(prefect)
+            displayPrefect(prefect);
+        } else {
+            prefectPopUp()
+        };
+    }
+
+}
+
+function displayPrefect(prefect) {
+    console.log("displayPrefect()")
+    prefect.isPrefect = "Prefect"
+    document.querySelector("#prefectPoint").textContent = "Is a Prefect"
+}
+
+
+
+//todo configure pop ups
+
+function prefectPopUp() {
+    window.alert("NOOO")
+}
 
 //display pop up
 
 
-//hack the system / hackTheSystem()
+//hack the system / hackTheSystem

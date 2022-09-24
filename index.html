@@ -1,156 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <div class="backGround">
-        <div class="pageOne">
-          <div class="filtering fancyContainer">
-            <h2 class="fancyFont">Filters:</h2>
-            <button
-              class="filterButton"
-              data-action="filter"
-              data-filter="Expelled"
-            >
-              Expelled
-            </button>
-            <button
-              class="filterButton"
-              data-action="filter"
-              data-filter="Hufflepuff"
-            >
-              HufflePuff
-            </button>
-            <button
-              class="filterButton"
-              data-action="filter"
-              data-filter="Gryffindor"
-            >
-              Gryffindor
-            </button>
-            <button
-              class="filterButton"
-              data-action="filter"
-              data-filter="Ravenclaw"
-            >
-              Ravenclaw
-            </button>
-            <button
-              class="filterButton"
-              data-action="filter"
-              data-filter="Slytherin"
-            >
-              Slytherin
-            </button>
-            <button
-              class="filterButton"
-              data-action="filter"
-              data-filter="Prefects"
-            >
-              Prefects
-            </button>
-            <button class="filterButton" data-action="filter" data-filter="*">
-              Show all
-            </button>
-          </div>
-          <div class="search">
-            <label for="searchMe" class="search"
-              >Search: <input type="text" label="search" class="searchMe"
-            /></label>
-          </div>
-          <div class="studentDisplay">
-            <table class="studentTable" id="list">
-              <thead class="tableHeader fancyFont fancyContainer">
-                <th
-                  data-action="sort"
-                  data-sort-direction="asc"
-                  data-sort="firstName"
-                  class="header"
-                >
-                  First Name
-                </th>
-                <th
-                  data-action="sort"
-                  data-sort-direction="asc"
-                  data-sort="lastName"
-                  class="header"
-                >
-                  Last Name
-                </th>
-                <th
-                  data-action="sort"
-                  data-sort-direction="asc"
-                  data-sort="house"
-                  class="header"
-                >
-                  House Name
-                </th>
-              </thead>
-              <tbody>
-                <!-- student data will be copied and insterted here -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="pageTwo">
-          <div class="title fancyFont fancyContainer">
-            <h1>Hacking Hogwarts</h1>
-          </div>
-          <div class="studentCard">
-            <div class="studentPic" id="studentPic1"></div>
-            <div class="studentPic" id="studentPic2"></div>
 
-            <div class="studentName">
-              <p class="bodyText" id="studentTitle"></p>
-            </div>
-            <div class="iconBox">
-              <ul class="iconText">
-                <li class="bodyText" id="bloodPoint">Pure-Blood</li>
-                <li class="bodyText" id="prefectPoint">Not a Prefect</li>
-                <li class="bodyText" id="inquisitorPoint">Not an Inquisitor</li>
-              </ul>
-            </div>
-            <div class="scriptText">
-              <h2 class="fancyFont">
-                <span id="spanFirst">Draco</span>
-                <span id="spanPrefect">is a prefect,</span>
-                <span id="spanExpel">has not been expelled yet,</span>
-                <span id="spanBlood">is of pure-blood </span>
-                <span id="#spanInquisitor">and is currently a member ofthe inquisition</span>
-              </h2>
-            </div>
-            <div class="houseCrest">
-              <img
-                class="throbbing"
-                id="houseImg"
-                src="/assets/otherImg/defaultHouse.jpg"
-                alt="House crest"
-              />
-            </div>
-            <div class="actions">
-              <ul class="actionList">
-                <li class="bodyText" id="inquisitorButton">Fire inquisitor</li>
-                <li class="bodyText" id="perfectButton">Hire Prefect</li>
-                <li class="bodyText" id="expelButton">Expel Student!</li>
-              </ul>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main>
+    <div class="backGround">
+      <div class="pageOne">
+        <div class="filtering fancyContainer">
+          <h2 class="fancyFont">Filters:</h2>
+          <button class="filterButton" data-action="filter" data-filter="Expelled">
+            Expelled
+          </button>
+          <button class="filterButton" data-action="filter" data-filter="Hufflepuff">
+            HufflePuff
+          </button>
+          <button class="filterButton" data-action="filter" data-filter="Gryffindor">
+            Gryffindor
+          </button>
+          <button class="filterButton" data-action="filter" data-filter="Ravenclaw">
+            Ravenclaw
+          </button>
+          <button class="filterButton" data-action="filter" data-filter="Slytherin">
+            Slytherin
+          </button>
+          <button class="filterButton" data-action="filter" data-filter="Prefects">
+            Prefects
+          </button>
+          <button class="filterButton" data-action="filter" data-filter="*">
+            Show all
+          </button>
+        </div>
+        <div class="search">
+          <label for="searchMe" class="search">Search: <input type="text" label="search" id="searchBar"class="searchMe" placeholder="Search wizards and witches..." /></label>
+        </div>
+        <div class="studentDisplay">
+          <table class="studentTable" id="list">
+            <thead class="tableHeader fancyFont fancyContainer">
+              <th data-action="sort" data-sort-direction="asc" data-sort="firstName" class="header">
+                First Name
+              </th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="lastName" class="header">
+                Last Name
+              </th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="house" class="header">
+                House Name
+              </th>
+            </thead>
+            <tbody>
+              <!-- student data will be copied and insterted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pageTwo">
+        <div class="title fancyFont fancyContainer">
+          <h1>Hacking Hogwarts</h1>
+        </div>
+        <div class="studentCard">
+          <div class="studentPic" id="studentPic1"></div>
+          <div class="studentPic" id="studentPic2"></div>
+
+          <div class="studentName">
+            <p class="bodyText" id="studentTitle"></p>
+          </div>
+          <div class="iconBox">
+            <ul class="iconText">
+              <li class="bodyText" id="bloodPoint"></li>
+              <li class="bodyText" id="prefectPoint">Not a prefect</li>
+              <li class="bodyText" id="inquisitorPoint">Not an Inquisitor</li>
+            </ul>
+          </div>
+          <div class="scriptText">
+            <h2 class="fancyFont">
+              <span id="spanFirst">Draco</span>
+              <span id="spanPrefect">is a prefect,</span>
+              <span id="spanExpel">has not been expelled yet,</span>
+              <span id="spanBlood">is of pure-blood </span>
+              <span id="#spanInquisitor">and is currently a member of the inquisition</span>
+            </h2>
+          </div>
+          <div class="houseCrest">
+            <img class="throbbing" id="houseImg" src="/assets/otherImg/defaultHouse.jpg" alt="House crest" />
+          </div>
+          <div class="actions">
+            <ul class="actionList">
+              <li class="bodyText" id="inquisitorButton">Make Inquisitor</li>
+              <li class="bodyText" id="prefectButton">Hire Prefect</li>
+              <li class="bodyText" id="expelButton">Expel Student!</li>
+            </ul>
           </div>
         </div>
       </div>
-    </main>
-    <template id="student">
-      <tr class="studentRow" id=" ">
-        <td data-field="firstName">First Name</td>
-        <td data-field="lastName">Last Name</td>
-        <td data-field="houseName">House</td>
-      </tr>
-    </template>
-    <script src="main.js"></script>
-  </body>
+    </div>
+  </main>
+  <template id="student">
+    <tr class="studentRow" id=" ">
+      <td data-field="firstName">First Name</td>
+      <td data-field="lastName">Last Name</td>
+      <td data-field="houseName">House</td>
+    </tr>
+  </template>
+  <script src="main.js"></script>
+</body>
+
 </html>

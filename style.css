@@ -295,7 +295,7 @@ td:hover {
 
     /* house crest glow */
     .throbbing {
-        animation-duration: 2s;
+        animation-duration: 1s;
         animation-name: throbber;
         animation-iteration-count: infinite;
         animation-direction: alternate;
@@ -311,7 +311,7 @@ td:hover {
     /* house crest glow */
     @keyframes throbber {
         from {
-            box-shadow:  inherit 2px 2px 50px 20px;
+            box-shadow:  inherit 2px 2px 80px 20px;
         }
 
         to {
