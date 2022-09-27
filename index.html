@@ -10,11 +10,17 @@
 </head>
 
 <body>
-  <main>
+  <audio id="hackTheme" src="/media/harrypotterhacktheme.mp3"></audio>
+  <main id="main">
+    <div class="responsivityDiv hidden">
+      <h1>Wizards and Witches don't have phones!</h1>
+    </div>
     <div class="backGround">
+
+      <!-- PAGE ONE //////////////////////////////////////////////////////////////////////////////////////////// -->
+
       <div class="pageOne">
         <div class="filtering fancyContainer">
-          <h2 class="fancyFont">Filters:</h2>
           <button class="filterButton" data-action="filter" data-filter="Expelled">
             Expelled
           </button>
@@ -34,11 +40,11 @@
             Prefects
           </button>
           <button class="filterButton" data-action="filter" data-filter="*">
-            Show all
+            Attending
           </button>
         </div>
         <div class="search">
-          <label for="searchMe" class="search">Search:
+          <label for="searchMe" class="search">Search:&nbsp
             <input type="text" label="search" id="searchBar" class="searchMe"
               placeholder="Search wizards and witches..." /></label>
         </div>
@@ -60,9 +66,29 @@
             </tbody>
           </table>
         </div>
+        <form class="counterDisplays">
+          <label class="labelDisplay" for="attendingCount">Attending:</label>
+          <input type="text" class="display" id="attendingCount" readonly>
+
+          <label class="labelDisplay" for="expelledCount">Expelled:</label>
+          <input type="text" class="display" id="expelledCount" readonly>
+
+          <label class="labelDisplay" for="hufflepuffCount">Hufflepuff:</label>
+          <input type="text" class="display" id="hufflepuffCount" readonly>
+
+          <label class="labelDisplay" for="gryffindorCount">Gryffindor:</label>
+          <input type="text" class="display" id="gryffindorCount" readonly>
+
+          <label class="labelDisplay" for="ravenclawCount">Ravenclaw:</label>
+          <input type="text" class="display" id="ravenclawCount" readonly>
+
+          <label class="labelDisplay" for="slytherinCount">Slytherin:</label>
+          <input type="text" class="display" id="slytherinCount" readonly>
+        </form>
       </div>
+      <!-- PAGE TWO //////////////////////////////////////////////////////////////////////////////////////////// -->
       <div class="pageTwoContainer">
-        <div id="pageCover" >
+        <div id="pageCover">
           <img class="throbbing" src="/assets/otherImg/defaultHouse.jpg" alt="page two image cover" />
         </div>
       </div>
@@ -72,6 +98,7 @@
           <h1>Hacking Hogwarts</h1>
         </div>
         <div class="studentCard">
+          <div class="expelledDiv hidden"><h1 class="expelledText">EXPELLED!</h1></div>
           <div class="studentPic" id="studentPic1"></div>
           <div class="studentPic" id="studentPic2"></div>
 
@@ -86,12 +113,12 @@
             </ul>
           </div>
           <div class="scriptText">
-            <h2 class="fancyFont">
-              <span id="spanFirst">Draco</span>
-              <span id="spanPrefect">is a prefect,</span>
-              <span id="spanExpel">has not been expelled yet,</span>
-              <span id="spanBlood">is of pure-blood </span>
-              <span id="#spanInquisitor">and is currently a member of the inquisition</span>
+            <h2 class="fancyFont" id="scriptFont">
+              <span id="spanFirst"></span>
+              <span id="spanNickname"></span>
+              <span id="spanPrefect"></span>
+              <span id="spanBlood"></span>
+              <span id="spanInquisitor"></span>
             </h2>
           </div>
           <div class="houseCrest">
@@ -99,22 +126,28 @@
           </div>
           <div class="actions">
             <ul class="actionList">
-              <li class="bodyText" id="inquisitorButton">Make Inquisitor</li>
+              <li class="bodyText hidden" id="inquisitorButton">Make Inquisitor</li>
               <li class="bodyText" id="prefectButton">Make Prefect</li>
               <li class="bodyText" id="expelButton">Expel Student!</li>
+              <li class="bodytext hidden" id="fakeExpelButton">Expel Student!</li>
             </ul>
           </div>
         </div>
       </div>
+      <p class="footer">Hacking Hogwarts Assignment by Gareth Davies for KEA Front-End Developer elective 2022.</p>
     </div>
+
   </main>
   <template id="student">
     <tr class="studentRow" id=" ">
-      <td data-field="firstName">First Name</td>
-      <td data-field="lastName">Last Name</td>
-      <td data-field="houseName">House</td>
+      <td data-field="firstName" class="studentCell">First Name</td>
+      <td data-field="lastName" class="studentCell">Last Name</td>
+      <td data-field="houseName" class="studentCell">House</td>
     </tr>
   </template>
+  <div id="modal" class="hidden">
+  </div>
+  <p id="modalText"></p>
   <script src="main.js"></script>
 </body>
 
