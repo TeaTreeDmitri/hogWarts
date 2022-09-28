@@ -208,12 +208,12 @@ function prepareData(el) {
     //associate images with students
 
     if (!lastName) {
-        imageTag1 = "/assets/studentImg/default.png"
+        imageTag1 = "assets/studentImg/default.png"
     } else if (lastName.includes("-")) {
-        imageTag1 = "/assets/studentImg/" + lastName.substring(lastName.indexOf("-") + 1, lastName.length).toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
+        imageTag1 = "assets/studentImg/" + lastName.substring(lastName.indexOf("-") + 1, lastName.length).toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
     } else if (lastName) {
-        imageTag1 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
-        imageTag2 = "/assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase() + ".png";
+        imageTag1 = "assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase().charAt(0) + ".png";
+        imageTag2 = "assets/studentImg/" + lastName.toLowerCase() + "_" + firstName.toLowerCase() + ".png";
     }
 
     //put variables into newobjects
@@ -469,7 +469,7 @@ function populatePage(student) {
     document.querySelector("#studentTitle").textContent = student.firstName + " " + student.lastName;
     document.querySelector("#studentPic1").style.backgroundImage = "url(" + student.studentImg1 + ")";
     document.querySelector("#studentPic2").style.backgroundImage = "url(" + student.studentImg2 + ")";
-    document.querySelector("#houseImg").src = "/assets/otherImg/" + student.house + ".jpg";
+    document.querySelector("#houseImg").src = "assets/otherImg/" + student.house + ".jpg";
     addSpans();
 
     document.querySelector("#prefectButton").textContent = "Make Prefect";
