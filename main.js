@@ -644,12 +644,9 @@ function checkInquisitor() {
         setTimeout(fireInquisitor, 3000);
     }
     else if (!newInquisitor.isInquisitor) {
-        console.log("inquisitor");
-        makeInquisitor();
+        makeInquisitor(foundStudent);
     } else {
-        console.log("inquisitor fired");
-
-        fireInquisitor();
+        fireInquisitor(foundStudent);
         
     }
 
