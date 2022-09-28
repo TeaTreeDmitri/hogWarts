@@ -25,7 +25,7 @@
   display: grid;
   grid-template-rows: 120vh 100vh;
   grid-template-columns: 1fr 1fr;
-  background-image: url(/assets/otherImg/woodenDessk.jpeg);
+  background-image: url(assets/otherImg/woodenDessk.jpeg);
   background-size: cover;
   overflow: hidden;
 }
@@ -327,15 +327,15 @@ td:hover {
 }
 
 #bloodPoint {
-  list-style-image: url(/assets/icons/drop.png);
+  list-style-image: url(assets/icons/drop.png);
 }
 
 #prefectPoint {
-  list-style-image: url(/assets/icons/star.png);
+  list-style-image: url(assets/icons/star.png);
 }
 
 #inquisitorPoint {
-  list-style-image: url(/assets/icons/cross.png);
+  list-style-image: url(assets/icons/cross.png);
 }
 
 /* house crest */
