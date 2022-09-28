@@ -519,7 +519,6 @@ function populatePage(student) {
     document.querySelector("#expelButton").addEventListener("click", expel);
     document.querySelector("#prefectButton").addEventListener("click", makePrefect);
     document.querySelector("#inquisitorButton").addEventListener("click", checkInquisitor);
-    //Todo Add expel are you sure?? pop up
 
     //set animations and effects
     setGlow(student)
